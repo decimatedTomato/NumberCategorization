@@ -55,12 +55,16 @@ def main():
             user_input = input("\nNumber to analyze: ")
             if user_input in ["q", "quit", "exit"]:
                 break
-            elif user_input[:3] == "set":
-                raise NotImplementedError #TODO allow configuation
+            elif user_input in ["set", "settings", "config", "configure"]:
+                user_input = input("Specify which properties to toggle (prime, aliquot, palindromic): ")
+                if "prime" in user_input: anal_spec.analyze_prime ^= True
+                if "aliquot" in user_input: anal_spec.analyze_aliquot ^= True
+                if "palindromic" in user_input: anal_spec.analyze_palindrome ^= True
+                continue
             try:
                 # handle list
                 if "," in user_input:
-                    anal_spec.input = [int(i) for i in user_input.split(",")]
+                    anal_spec.input = [int(i) for i in user_input.split(",")] #TODO issues
                 # handle range
                 if ":" in user_input:
                     a, b, c = map(int, user_input.split(":")) #TODO issues
